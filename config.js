@@ -130,7 +130,7 @@ export const config = {
 
     /** @property {object} url - URL utama sistem */
     url: {
-      website: 'https://connex.co.id',
+      website: 'https://daytrans.co.id',
       otp: ''
     }
 };
