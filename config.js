@@ -18,11 +18,13 @@ export const config = {
 
     /** @property {object} journey - Informasi jadwal perjalanan */
     journey: {
-      departure: 'Alfamart exit tol buah batu',
-      arrival: 'Markas cafe',
-      date: 'July 23, 2025',
+      departure: 'Bandung',
+      arrival: 'Jakarta',
+      naikOption: 'BUAH BATU',
+      turunOption: 'BINUS',
+      date: 'August 20, 2025',
       return_date: 'July 28 2025',
-      passenger_count: 3,
+      passenger_count: 2,
     },
 
     /** @property {string} otp - Kode OTP statis untuk keperluan pengujian */
@@ -45,12 +47,23 @@ export const config = {
                 seat_number: "2",
                 return_seat: "3"
             },
-            {
-                name: "Sam",
-                seat_number: "3",
-                return_seat: "4"
-            }
+            // {
+            //     name: "Sam",
+            //     seat_number: "3",
+            //     return_seat: "4"
+            // }
         ]
+    },
+
+    packet: {
+      origin: "Jakarta Barat",
+      destination: "Kota Bekasi",
+      packetType: "Alat Musik Medium",
+      packetVolume: "Reguler Parcel",
+      weight: 12,
+      length: 34,
+      width: 10,
+      height: 10,
     },
 
     /** @property {object} voucher - Kode voucher yang digunakan dalam pengujian */
@@ -95,24 +108,44 @@ export const config = {
 
     // Sign in Connex
     /** @property {object} sign_methods - Metode login yang tersedia di halaman login */
+    // untuk daytrans
     sign_methods: {
       phone: `xpath=//button[normalize-space()='Nomor Telepon']`,
       whatsapp: `xpath=//button[normalize-space()='Whatsapp']`,
-      email: `xpath=//button[normalize-space()='Email']`,
-      google: `xpath=//button[@id='googleLogin']`,
     },
+
+    // untuk connex
+    // sign_methods: {
+    //   phone: `xpath=//button[normalize-space()='Nomor Telepon']`,
+    //   whatsapp: `xpath=//button[normalize-space()='Whatsapp']`,
+    //   email: `xpath=//button[normalize-space()='Email']`,
+    //   google: `xpath=//button[@id='googleLogin']`,
+    // },
 
     /** @property {object} more_info - Informasi tambahan seperti metode pembayaran */
     more_info: {
-      method: ['v-pills-0-tab'],
+      method: [
+        // untuk daytrans
+        { menu: "Pembayaran Instan", method: "GOPAY"},
+      ] 
+
+      //For Connex
+      // ['v-pills-0-tab'],
     },
 
     /** @property {object} media_sosial - Lokator tombol media social di footer */
+    // Untuk daytrans
     media_sosial: {
-      facebook: `xpath=//a[normalize-space()='Facebook']`,
-      instagram: `xpath=//a[normalize-space()='Instagram']`,
-      tiktok: `xpath=//a[normalize-space()='Tiktok']`,
+      instagram: `xpath=//p[2]//a[1]//img[1]`,
+      tiktok: `xpath=//footer[@class='newfooter']//a[2]//img[1]`,
     },
+    
+    // Untuk Connex
+    // media_sosial: {
+    //   facebook: `xpath=//a[normalize-space()='Facebook']`,
+    //   instagram: `xpath=//a[normalize-space()='Instagram']`,
+    //   tiktok: `xpath=//a[normalize-space()='Tiktok']`,
+    // },
 
     /** @property {object} phone_info - Lokator nomor telefon di bagian informasi di footer */
     phone_info: {
@@ -123,10 +156,17 @@ export const config = {
     },
 
     /** @property {object} web_source - Lokator tombol sumber unduhan aplikasi */
+    // untuk daytrans
     web_source: {
-      playstore: `xpath=//img[@alt='Playstore']`,
-      appstore: `xpath=//img[@alt='Appstore']`,
+      appstore: `xpath=//p[@class='mb-0']//img[@class='img-fluid']`,
+      googlestore: `xpath=//a[@href='https://play.google.com/store/apps/details?id=com.trust.android.daytrans']//img[@class='img-fluid']`,
     },
+
+    // untuk Connex
+    // web_source: {
+    //   playstore: `xpath=//img[@alt='Playstore']`,
+    //   appstore: `xpath=//img[@alt='Appstore']`,
+    // },
 
     /** @property {object} url - URL utama sistem */
     url: {
