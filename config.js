@@ -56,9 +56,9 @@ export const config = {
     },
 
     packet: {
-      origin: "BAROS",
-      destination: "KADIPATEN",
-      packetType: "SEDANG",
+      origin: "REJEKI BARU JAKARTA",
+      destination: "MC DONALD JOMBOR",
+      packetType: "DOKUMEN",
       packetVolume: "Reguler Parcel",
       weight: 12,
       length: 34,
@@ -149,7 +149,7 @@ export const config = {
 
     /** @property {object} url - URL utama sistem */
     url: {
-      website: 'https://putraremaja.co.id/',
+      website: 'https://www.rejekibaru.id/',
       otp: ''
     }
 };

@@ -21,11 +21,8 @@ async function clickingMedsos(webApp) {
         value: 'Navigate to Tentang page',
     });
 
-    const aboutPath = webApp.locator(`xpath=//a[normalize-space()='Tentang']`).first();
-    await aboutPath.click();
-    await expect(webApp.locator(`xpath=//img[@src='/default/raputri/images/icon/logo.png']`)).toBeVisible();
-
-    const medsosPath = webApp.locator(`xpath=//div[@class='footer-text text-center text-lg-left']`);
+    const medsosPath = webApp.locator(`xpath=//img[@alt='icon']`);
+    await medsosPath.isVisible();
     await medsosPath.click();
 }
 

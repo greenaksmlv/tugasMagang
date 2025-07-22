@@ -8,16 +8,12 @@ async function armada(webApp) {
         value: 'Navigate to Tentang page',
     });
 
-    const tentangDropdown = webApp.locator('button:has(svg path[d*="M0 3h20v2H"])');
-    await expect(tentangDropdown).toBeVisible({ timeout: 10000 });
-    await tentangDropdown.click();
-
-    const armadaPath = webApp.getByRole('link', { name: /armada/i });
+    const armadaPath = webApp.locator(`xpath=//a[normalize-space()='Armada Kami']`);
     await expect(armadaPath).toBeVisible({ timeout: 5000 });
     await armadaPath.click();
 
     // Final assertion
-    await expect(webApp.locator('text=/armada/i')).toBeVisible();
+    await expect(webApp.locator(`xpath=//p[@class='lg-`)).toBeVisible();
 
 }
 
