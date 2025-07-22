@@ -4,40 +4,26 @@ const { time } = require('console');
 
 test.setTimeout(120_000);
 
-/**
- * Fungsi:
- * - Memilih lokasi keberangkatan dari dropdown departure
- * 
- * Alur:
- * - Cari input "berangkat"
- * - Klik input tersebut dan pilih outlet berdasarkan nama dari parameter
- * 
- * @param {object} webApp - Objek browser Playwright 
- * @param {string} departure - Nama outlet keberangkatan
- */
-
 // Helper function to pick departure
 async function pickDeparture(webApp, departure) {
     test.info().annotations.push({
         type: 'allure.step',
         value: 'Pick departure',
     });
-    await expect(webApp.locator(`xpath=//input[@id='berangkat']`)).toBeVisible();
-    await webApp.locator(`xpath=//input[@id='berangkat']`).click();
-    await webApp.locator(`xpath=//div[@id='dropdown-outlet']//div//div[@class='dropdown-item drpdwn-item'][normalize-space()='${departure}']`).click();
+
+    const labelKeberangkatan = webApp.locator(`xpath=//p[normalize-space()='Keberangkatan']`);
+    const dropdownKeberangkatan = webApp.locator(`xpath=//span[normalize-space()='Pilih Keberangkatan']`);
+    const departureOption = webApp.locator(`xpath=//div[@class='ss-content ss-open']//div[@class='ss-option'][normalize-space()='${departure}']`);
+
+    await expect(labelKeberangkatan).toBeVisible({ timeout: 10000 });
+    await expect(dropdownKeberangkatan).toBeAttached();
+    await dropdownKeberangkatan.waitFor({ state: 'visible', timeout: 10000 });
+    await dropdownKeberangkatan.click();
+
+    await expect(departureOption).toBeVisible({ timeout: 10000 });
+    await departureOption.click();
 }
 
-/**
- * Fungsi:
- * - Memilih tujuan perjalanan dari dropdown arrival
- * 
- * Alur:
- * - Cari input 'tujuan'
- * - Klik input dan pilih tujuan berdasarkan nama dari parameter
- * 
- * @param {object} webApp - Objek browser Playwright 
- * @param {string} arrival - Nama outlet tujuan 
- */
 
 // Helper function to pick arrival
 async function pickArrival(webApp, arrival) {
@@ -45,23 +31,34 @@ async function pickArrival(webApp, arrival) {
         type: 'allure.step',
         value: 'Pick arrival',
     });
-    await expect(webApp.locator(`xpath=//input[@id='tujuan']`)).toBeVisible();
-    await webApp.locator(`xpath=//input[@id='tujuan']`).click();
-    await webApp.locator(`xpath=//div[@id='dropdown-outlet2']//div//div[@class='dropdown-item drpdwn-item'][normalize-space()='${arrival}']`).click();
+
+    const labelTujuan = webApp.locator(`xpath=//p[normalize-space()='Tujuan']`);
+    const dropdownTujuan = webApp.locator(`xpath=//span[normalize-space()='Pilih Tujuan']`);
+    const arrivalOption = webApp.locator(`xpath=//div[@class='ss-content ss-open']//div[@class='ss-option'][normalize-space()='${arrival}']`);
+
+    // Tunggu label "Tujuan" muncul
+    await expect(labelTujuan).toBeVisible({ timeout: 10000 });
+
+    // Tunggu dropdown bisa diklik
+    await expect(dropdownTujuan).toBeAttached();
+    await dropdownTujuan.waitFor({ state: 'visible', timeout: 10000 });
+    await dropdownTujuan.click();
+
+    // Tunggu opsi tujuan muncul
+    await expect(arrivalOption).toBeVisible({ timeout: 10000 });
+    await arrivalOption.click();
 }
 
-/**
- * Fungsi:
- * - Memilih tanggal keberangkatan dari kalender
- * 
- * Alur:
- * - Klik input tanggal keberangkatan
- * - klik tombol bulan berikutnya
- * - klik tanggal yang sesuai
- * 
- * @param {object} webApp - Objek browser Playwright 
- * @param {*} date - Tanggal dengan format
- */
+
+// Helper function to select passenger count
+async function selectPassenger(webApp, totalPassenger) {
+    test.info().annotations.push({
+        type: 'allure.step',
+        value: 'Select passenger count',
+    });
+    await webApp.locator(`xpath=//span[normalize-space()='1 Orang']`).click();
+    await webApp.locator(`xpath=//div[normalize-space()='${totalPassenger} Orang']`).click();
+}
 
 // Helper function to select date
 async function selectDate(webApp, date) {
@@ -76,44 +73,10 @@ async function selectDate(webApp, date) {
     // Next month
     await webApp.locator(`xpath=//span[@class='flatpickr-next-month']//*[name()='svg']`).click();
     await webApp.locator(`xpath=//span[@aria-label='${date}']`).click();
-}
-
-/**
- * Fungsi:
- * - Menentukan jumlah penumpang dan klik tombol cari 
- * 
- * Alur:
- * - Klik input jumlah orang
- * - Pilih jumlah dari dropdown
- * - Klik tombol "Search"
- *  
- * @param {object} webApp - Objek browser Playwright
- * @param {number} totalPassenger - Jumlah total penumpang
- */
-
-// Helper function to select passenger count
-async function selectPassenger(webApp, totalPassenger) {
-    test.info().annotations.push({
-        type: 'allure.step',
-        value: 'Select passenger count',
-    });
-    await webApp.locator(`xpath=//span[@class='placeholder']`).click();
-    await webApp.locator(`xpath=//div[normalize-space()='${totalPassenger} Orang']`).click();
 
     // button search
-    await webApp.locator(`xpath=//button[normalize-space()='Search']`).click();
+    await webApp.locator(`xpath=//button[normalize-space()='Cari']`).click();
 }
-
-/**
- * Fungsi: 
- * - Memilih jadwal keberangkatan yang tersedia
- * 
- * Alur: 
- * - Klik tombol "Pilih Jam Keberangkatan"
- * - Klik tombol "Beli Tiket" pada jadwal yang tersedia
- * 
- * @param {object} webApp -  Objek browser Playwright
- */
 
 // Helper function to select schedule
 async function selectSchedule(webApp) {
@@ -121,25 +84,9 @@ async function selectSchedule(webApp) {
         type: 'allure.step',
         value: 'Select travel schedule',
     });
-    const scheduleButton = webApp.locator(`xpath=//div[contains(@class,'col-lg-12 my-4 px-0 item overflow-hidden jadwal-parent-0')]//button[@class='btn text-white bg-red h-100 fs-14 shadow br-button px-4 btn-list-jadwal'][normalize-space()='Pilih Jam Keberangkatan']`);
+    const scheduleButton = webApp.locator(`xpath=//button[normalize-space()='Pilih']`);
     await scheduleButton.click();
-
-    const buyTicket = webApp.locator(`xpath=//li[@class='px-0']//li[1]//div[1]//div[3]//div[2]//div[1]//button[1]`);
-    await buyTicket.click();
 }
-
-/**
- * Fungsi:
- * - Mengisi data pemesan dan penumpang yang disesuaikan dengan config.js
- * 
- * Alur: 
- * - Isi nama, email, dan nomor telepon pemesan
- * - Jika pemesan bukan penumpang, isi data penumpang pertama secara manual
- * - Isi semua data penumpang sesuai urutan
- * - Klik tombol "Pilih Kursi" lalu tombol "Lanjutkan"
- * 
- * @param {objek} webApp - Objek browser Playwright 
- */
 
 // Helper function to input passenger data
 async function inputPassengerData(webApp) {
@@ -176,23 +123,8 @@ async function inputPassengerData(webApp) {
     }
 
     // click button "Pilih Kursi"
-    await webApp.locator(`xpath=//button[@id='submitModal']`).click();
-
-    // click button "Lanjutkan"
-    await webApp.locator(`xpath=//button[@id='confirmSubmit']`).click();
+    await webApp.locator(`xpath=//button[@id='submit']`).click();
 }
-
-/**
- * Fungsi:
- * - Memilih kursi penumpang sesuai dengan nama dan nomor yang ada di config.js
- * 
- * Alur:
- * - Klik blok penumpang berdasarkan nama
- * - Klik kursi sesuai `seat_number` dari config
- * - Submit pilihan kursi
- * 
- * @param {object} webApp - Objek browser Playwright 
- */
 
 // Helper function to select seat
 async function selectSeat(webApp) {
@@ -205,39 +137,19 @@ async function selectSeat(webApp) {
 
     for (let i = 0; i < passengers.length; i++) {
         const passenger = passengers[i];
-        const passengerIndex = i + 1;
-
+        
         console.log(`Select seat ${passenger.seat_number} for passenger ${passenger.name}`);
 
-    // Wait for and click passenger block
-        const passengerBlock = webApp.locator(`xpath=//div[contains(text(),'${passenger.name}')]`);
-        await expect(passengerBlock).toBeVisible({ timeout: 10000 });
-        await passengerBlock.click();
-
-        await webApp.waitForTimeout(10000); //pause berfore seat selection
-    
-    // Seat selection
-        const seatLocator = webApp.locator(`xpath=//div[@id='${passenger.seat_number}']//p[1]`);
+        // Seat selection
+        const seatLocator = webApp.locator(`xpath=//div[@id='${passenger.seat_number}']//p`);
         await expect(seatLocator).toBeVisible({ timeout: 5000 });
         await seatLocator.click();
-    }
 
+        await webApp.waitForTimeout(10000);
+    }
     // Submit selection
     await webApp.locator(`xpath=//button[@id='submit']`).click();
 }
-
-/**
- * Fungsi: 
- * - Menggunakan voucher yang valid
- * 
- * Alur: 
- * - Klik tombol "Gunakan Voucher"
- * - Masukkan kode voucher dari parameter
- * - Klik tombol cek voucher
- * 
- * @param {object} webApp - Objek browser Playwright 
- * @param {string} voucherCode - Kode voucher yang akan digunakan
- */
 
 // Helper function to use voucher
 async function usingVoucher(webApp, voucherCode) {
@@ -257,18 +169,6 @@ async function usingVoucher(webApp, voucherCode) {
     }
 }
 
-/**
- * Fungsi: 
- * - Memilih metode pembayaran dari label
- * 
- * Alur: 
- * - Klik bagian "Pembayaran Instan"
- * - Klik metode pembayaran yang ingin digunakan
- * 
- * @param {object} webApp - Objek browser Playwright 
- * @param {string} paymentMethod - ALT gambar metode pembayaran/radio
- */
-
 // Helper function to select payment method
 async function selectPayment(webApp, paymentMethod) {
     test.info().annotations.push({
@@ -287,18 +187,6 @@ async function selectPayment(webApp, paymentMethod) {
     await paymentRadio.click();
 }
 
-/**
- * Fungsi:
- * - Menyetujui syarat & ketentuan dan menyelesaikan pemesanan
- * 
- * Alur:
- * - Klik checkbox konfirmasi
- * - Klik tombol "Submit"
- * - Klik tombol "Konfirmasi" pada popup
- * 
- * @param {object} webApp - Objek browser Playwright 
- */
-
 // Helper function checking button syarat n ketentuan
 async function checkingTnc(webApp) {
     const tncButton = webApp.locator(`xpath=//label[contains(text(),'Silahkan tandai kotak ini sebagai bukti bahwa anda')]`);
@@ -309,20 +197,6 @@ async function checkingTnc(webApp) {
     // click Konfirmasi popup
     await webApp.locator(`xpath=//button[@type='button'][normalize-space()='Konfirmasi']`).click();
 }
-
-/**
- * Pengujian utama untuk proses pemesanan tiket
- * 
- * Tujuan:
- * - Memastikan seluruh alur pemesanan dari awal sampai akhir berjalan dengan baik.
- * - Meliputi pemilihan keberangkatan, jadwal, data penumpang, kursi, voucher, hingga metode pembayaran.
- * 
- * Label Allure:
- * - feature: Reservation
- * - severity: critical
- * - platform: web
- * - status: pass
- */
 
 // Main test
 test('reservation', async ({ webApp }) => {
@@ -356,9 +230,9 @@ test('reservation', async ({ webApp }) => {
     await pickArrival(webApp, config.journey.arrival);
 
     // Select date and passenger count
-    await selectDate(webApp, config.journey.date);
     await selectPassenger(webApp, config.journey.passenger_count);
-
+    await selectDate(webApp, config.journey.date);
+    
     // Select a schedule
     await selectSchedule(webApp);
 

@@ -3,13 +3,13 @@ const { test, expect } = require('../setup');
 
 /**
  * Fungsi:
- * - Untuk mengakses halaman daftar outlet DayTrans dari menu navigasi
+ * - Untuk mengakses halaman daftar outlet Minaga Express dari menu navigasi
  * 
  * Alur:
  * - Klik menu dropdown navigasi utama
  * - Pilih opsi "Outlet" dari menu dropdown
  * - Verifikasi bahwa halaman "Temukan Outlet Kami!" muncul
- * - Klik tombol "Lihat Semua" untuk membuka detail outlet di bandung
+ * - Klik tombol "Lihat Semua" untuk membuka detail outlet
  * 
  * @param {object} webApp - Objek browser Playwright 
  */
@@ -21,17 +21,14 @@ async function checkOutlet(webApp) {
         value: 'Navigate to Outlet page',
     });
 
-    const dropdownMenu = webApp.locator(`xpath=//a[@id='navbarDropdown']`);
-    await dropdownMenu.click();
-
-    const outletPath = webApp.locator(`xpath=//a[@class='dropdown-item'][normalize-space()='Outlet']`);
+    const outletPath = webApp.locator(`xpath=//a[normalize-space()='Outlet']`);
     await outletPath.click();
 
     // Expect the page to have text temukan outlet kami!
-    await expect(webApp.locator(`xpath=//h2[contains(text(),'Temukan')]`)).toBeVisible();
+    await expect(webApp.locator(`xpath=//h1[normalize-space()='Lokasi Outlet kami tersebar di berbagai tempat']`)).toBeVisible();
 
     // click to see all the schedule
-    const lihatSemua = webApp.locator(`xpath=//a[@href='https://www.daytrans.co.id/outlet/detail?outlet_kota=BANDUNG']`);
+    const lihatSemua = webApp.locator(`xpath=//button[@data-nama='Pool Minanga Express']`);
     await lihatSemua.click();
 }
 
@@ -54,7 +51,7 @@ test('outlet', async ({ webApp }) => {
     // Add Allure Labels for categorizing in the report
     test.info().annotations.push({
         type: 'allure.label',
-        value: 'feature: Access to outlet',
+        value: 'feature: Access to blog',
     });
     test.info().annotations.push({
         type: 'allure.label',
