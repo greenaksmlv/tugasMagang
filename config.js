@@ -144,12 +144,12 @@ export const config = {
     /** @property {object} web_source - Lokator tombol sumber unduhan aplikasi */
     web_source: {
       appstore: `xpath=//img[@alt='Appstore']`,
-      googlestore: `xpath=//img[@src='https://www.transkitashuttle.co.id/global/images/playstore.png']`,
+      googlestore: `xpath=//img[@src='global/images/playstore.png']`,
     },
 
     /** @property {object} url - URL utama sistem */
     url: {
-      website: 'https://www.buswisatakomodo.com/',
+      website: 'https://www.ztrans.id/',
       otp: ''
     }
 };
