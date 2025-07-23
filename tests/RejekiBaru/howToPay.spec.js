@@ -17,17 +17,17 @@ const { test, expect } = require('../setup');
  * @param {Array<string>} methods - Daftar ID metode pembayaran yang ingin diketahui dari (config.more_info.method) 
  */
 
-// Helper function to check on contact
+// Helper function to check on how to pay
 async function howToPay(webApp) {
     test.info().annotations.push({
         type: 'allure.step',
         value: 'Navigate to how to pay Page',
     });
 
-    const contactPath = webApp.locator(`xpath=//a[normalize-space()='Cara Bayar']`);
-    await contactPath.waitFor({ timeout: 10000 });
-    await expect(contactPath).toBeVisible();
-    await contactPath.click();
+    const howToPayPath = webApp.locator(`xpath=//a[normalize-space()='Cara Bayar']`);
+    await howToPayPath.waitFor({ timeout: 10000 });
+    await expect(howToPayPath).toBeVisible();
+    await howToPayPath.click();
 
     await expect(webApp.locator(`xpath=//h1[normalize-space()='Cara Pembayaran']`)).toBeVisible(); 
 
@@ -71,6 +71,6 @@ test('how to pay', async ({ webApp }) => {
         value: 'status: pass',
     });
 
-    // Start to access contact
+    // Start to access how to pay
     await howToPay(webApp);
 });

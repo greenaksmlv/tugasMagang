@@ -3,33 +3,33 @@ const { test, expect } = require('../setup');
 
 /**
  * Fungsi:
- * - Menavigasi ke halaman "Blog" di situs Raputri.
+ * - Menavigasi ke halaman "Kontak"
  *
  * Alur:
- * - Temukan elemen menu "Blog" dari navbar
- * - Klik elemen tersebut untuk memuat halaman blog
- * - Verifikasi elemen konten utama blog muncul
+ * - Temukan elemen footer "Kontak"
+ * - Klik untuk membuka halaman Kontak
+ * - Verifikasi elemen heading utama "Hubungi Kami" muncul
  *
- * @param {object} webApp - Objek halaman (browser context) dari Playwright
+ * @param {object} webApp - Objek halaman dari Playwright (browser context)
  */
 
-// Helper funtion to check on blog
-async function blog(webApp) {
+// Helper funtion to check on contact
+async function contact(webApp) {
     test.info().annotations.push({
         type: 'allure.step',
         value: 'Navigate to Blog Page',
     });
 
-    const blogPath = webApp.locator(`xpath=//a[@class='nav-link '][normalize-space()='Blog']`);
-    await blogPath.isVisible();
-    await blogPath.click();
+    const contactPath = webApp.locator(`xpath=//a[contains(@class,'nav-link')][normalize-space()='Kontak']`);
+    await contactPath.isVisible();
+    await contactPath.click();
 
     // Expect the page to have text
-    await expect(webApp.locator(`xpath=//div[@class='col-lg-8 ml-auto mr-auto mt-auto mb-auto']`)).toBeVisible(); 
+    await expect(webApp.locator(`xpath=//h1[normalize-space()='Hubungi Kami']`)).toBeVisible(); 
 }
 
 // Main test
-test('blog', async ({ webApp }) => {
+test('contact', async ({ webApp }) => {
     // Add Allure Labels for categorizing in the report
     test.info().annotations.push({
         type: 'allure.label',
@@ -48,6 +48,6 @@ test('blog', async ({ webApp }) => {
         value: 'status: pass',
     });
 
-    // Start to access blog
-    await blog(webApp);
+    // Start to access contact
+    await contact(webApp);
 });

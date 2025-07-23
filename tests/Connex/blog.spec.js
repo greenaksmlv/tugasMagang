@@ -86,7 +86,7 @@ test('blog', async ({ webApp }) => {
         value: 'status: pass',
     });
 
-    // Start to access about us
+    // Start to access blog
     await aboutUs(webApp);
 
     // Click berita 

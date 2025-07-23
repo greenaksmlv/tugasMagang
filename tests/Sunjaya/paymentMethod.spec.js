@@ -2,32 +2,27 @@ const { config } = require('../../config');
 const { test, expect } = require('../setup');
 
 /**
- * Fungsi untuk mengakses halaman "Cara Bayar"
+ * Fungsi untuk mengakses halaman "Metode Pembayaran"
  * Memeriksa instruksi pembayarannya berdasarkan metode yang ditentukan
  * 
  * Alur:
- * - Klik link "Cara Bayar" yang berada di menu
+ * - Klik link "Metode Pembayaran" yang berada di menu
  * - Verifikasi judul halaman muncul
- * - Untuk setiap metode pembayaran dalam array `methods`:
- *      - Klik metode pembayaran 
- *      - Klik dropdown untuk mendapatkan instruksi
- *      - Verifikasi bahwa detail instruksi terlihat
- * 
  * @param {object} webApp - Konteks Playwright (browser page)
  * @param {Array<string>} methods - Daftar ID metode pembayaran yang ingin diketahui dari (config.more_info.method) 
  */
 
-// Helper function to check on how to pay
-async function howToPay(webApp) {
+// Helper function to check on payment method
+async function paymentMethod(webApp) {
     test.info().annotations.push({
         type: 'allure.step',
-        value: 'Navigate to how to pay Page',
+        value: 'Navigate to how to payment method',
     });
 
-    const howToPayPath = webApp.locator(`xpath=//a[normalize-space()='Cara Bayar']`);
-    await howToPayPath.waitFor({ timeout: 10000 });
-    await expect(howToPayPath).toBeVisible();
-    await howToPayPath.click();
+    const paymentMethodPath = webApp.locator(`xpath=//a[contains(@class,'nav-link')][normalize-space()='Metode Pembayaran']`);
+    await paymentMethodPath.waitFor({ timeout: 10000 });
+    await expect(paymentMethodPath).toBeVisible();
+    await paymentMethodPath.click();
 
     await expect(webApp.locator(`xpath=//h1[normalize-space()='Cara Pembayaran']`)).toBeVisible(); 
 
@@ -52,7 +47,7 @@ async function howToPay(webApp) {
 
 
 // Main test
-test('how to pay', async ({ webApp }) => {
+test('payment method', async ({ webApp }) => {
     // Add Allure Labels for categorizing in the report
     test.info().annotations.push({
         type: 'allure.label',
@@ -72,5 +67,5 @@ test('how to pay', async ({ webApp }) => {
     });
 
     // Start to access how to pay
-    await howToPay(webApp);
+    await paymentMethod(webApp);
 });

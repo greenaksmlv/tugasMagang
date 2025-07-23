@@ -18,11 +18,11 @@ export const config = {
 
     /** @property {object} journey - Informasi jadwal perjalanan */
     journey: {
-      departure: 'Cikarang',
-      arrival: 'Kota Bumi',
+      departure: 'SAMARINDA',
+      arrival: 'SANGATTA',
       naikOption: 'BUAH BATU',
       turunOption: 'BINUS',
-      date: 'August 28, 2025',
+      date: 'August 22, 2025',
       return_date: 'September 5  2025',
       passenger_count: 2,
     },
@@ -56,9 +56,9 @@ export const config = {
     },
 
     packet: {
-      origin: "REJEKI BARU JAKARTA",
-      destination: "MC DONALD JOMBOR",
-      packetType: "DOKUMEN",
+      origin: "BONTANG",
+      destination: "BALIKPAPAN",
+      packetType: "PREMIUM",
       packetVolume: "Reguler Parcel",
       weight: 12,
       length: 34,
@@ -144,12 +144,12 @@ export const config = {
     /** @property {object} web_source - Lokator tombol sumber unduhan aplikasi */
     web_source: {
       appstore: `xpath=//img[@alt='Appstore']`,
-      googlestore: `xpath=//img[@alt='Playstore']`,
+      googlestore: `xpath=//img[@src='https://www.transkitashuttle.co.id/global/images/playstore.png']`,
     },
 
     /** @property {object} url - URL utama sistem */
     url: {
-      website: 'https://www.rejekibaru.id/',
+      website: 'https://www.buswisatakomodo.com/',
       otp: ''
     }
 };

@@ -3,10 +3,10 @@ const { test, expect } = require('../setup');
 
 /**
  * Fungsi: 
- * - Untuk mengakses dan memverifikasi halaman "Syarat dan Ketentuan"
+ * - Untuk mengakses dan memverifikasi halaman "Syarat dan Ketentuan paket"
  * 
  * Alur:
- * - Klik menu "Syarat dan Ketentuan" dari halaman utama
+ * - Klik menu "Syarat dan Ketentuan paket" di footer
  * - Klik item informasi "Syarat dan Ketentuan Shuttle"
  * - Verifikasi bahwa konten detail berjudul "SYARAT DAN KETENTUAN" muncul
  * 
@@ -14,19 +14,16 @@ const { test, expect } = require('../setup');
  */
 
 // Helper function to check syarat & ketentuan
-async function termsConditions(webApp) {
+async function packetTermsConditions(webApp) {
     test.info().annotations.push({
         type: 'allure.step',
-        value: 'Navigate to terms and conditions page',
+        value: 'Navigate to ticket terms and conditions page',
     });
 
-    await webApp.locator(`xpath=//a[normalize-space()='Syarat dan Ketentuan']`).click();
-
-    // click the information of terms and conditions
-    await webApp.locator(`xpath=//p[normalize-space()='Syarat dan Ketentuan Shuttle']`).click();
+    await webApp.locator(`xpath=//a[normalize-space()='Syarat & Ketentuan Titip Kirim Paket']`).first().click();
     
     // wait for the detail information to be visible
-    await expect(webApp.locator(`xpath=//strong[normalize-space()='SYARAT DAN KETENTUAN']`)).toBeVisible();
+    await expect(webApp.locator(`xpath=//p[@class='fs-20']`)).toBeVisible();
 }
 
 /**
@@ -48,7 +45,7 @@ test('terms & conditions', async ({ webApp }) => {
     // Add Allure Labels for categorizing in the report
     test.info().annotations.push({
         type: 'allure.label',
-        value: 'feature: terms and conditions page',
+        value: 'feature: terms & conditions page',
     });
     test.info().annotations.push({
         type: 'allure.label',
@@ -64,5 +61,5 @@ test('terms & conditions', async ({ webApp }) => {
     });
 
     // Start the terms and conditions process
-    await termsConditions(webApp);
+    await packetTermsConditions(webApp);
 });

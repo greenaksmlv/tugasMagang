@@ -31,7 +31,7 @@ async function ticketCheck(webApp, codeBooking) {
 }
 
 // Main test 
-test('packetTracking', async ({ webApp }) => {
+test('ticketCheck', async ({ webApp }) => {
     // Add Allure Labels for categorizing in the report
     test.info().annotations.push({
         type: 'allure.label',

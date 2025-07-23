@@ -3,10 +3,10 @@ const { test, expect } = require('../setup');
 
 /**
  * Fungsi:
- * - Menavigasi ke halaman "Blog" di situs Raputri.
+ * - Menavigasi ke halaman "Blog".
  *
  * Alur:
- * - Temukan elemen menu "Blog" dari navbar
+ * - Temukan elemen menu "Blog" dari footer
  * - Klik elemen tersebut untuk memuat halaman blog
  * - Verifikasi elemen konten utama blog muncul
  *
@@ -25,7 +25,7 @@ async function blog(webApp) {
     await blogPath.click();
 
     // Expect the page to have text
-    await expect(webApp.locator(`xpath=//div[@class='col-lg-8 ml-auto mr-auto mt-auto mb-auto']`)).toBeVisible(); 
+    await expect(webApp.locator(`xpath=//h1[normalize-space()='Promo dan Berita Rukun Trans']`)).toBeVisible(); 
 }
 
 // Main test

@@ -1,16 +1,16 @@
 const { config } = require('../../config');
 const { test, expect } = require('../setup');
 
+
 /**
  * Fungsi:
- * - Menavigasi ke halaman "Blog" di situs Raputri.
- *
+ * - Untuk mengakses dan memverifikasi halaman Blog di navigasi utama
+ * 
  * Alur:
- * - Temukan elemen menu "Blog" dari navbar
- * - Klik elemen tersebut untuk memuat halaman blog
- * - Verifikasi elemen konten utama blog muncul
- *
- * @param {object} webApp - Objek halaman (browser context) dari Playwright
+ * - Klik opsi "Blog"
+ * - Verifikasi bahwa judul "Blog Daytrans" muncul di halaman sebagai tanda halaman dimuat
+ * 
+ * @param {object} webApp - Objek browser Playwright 
  */
 
 // Helper funtion to check on blog
@@ -24,9 +24,23 @@ async function blog(webApp) {
     await blogPath.isVisible();
     await blogPath.click();
 
-    // Expect the page to have text
-    await expect(webApp.locator(`xpath=//div[@class='col-lg-8 ml-auto mr-auto mt-auto mb-auto']`)).toBeVisible(); 
+    // Expect the page to have text berita Day Trans
+    await expect(webApp.locator(`xpath=//h1[normalize-space()='Promo dan Berita Transkita']`)).toBeVisible(); 
 }
+
+/**
+ * Pengujian utama untuk akses halaman Blog
+ * 
+ * Tujuan:
+ * - Memastikan halaman Blog dapat diakses melalui menu navigasi dropdown
+ * - Memverifikasi elemen judul "Blog Daytrans" muncul sebagai indikator halaman berhasil dimuat
+ * 
+ * Allure Labels:
+ * - feature: Access to blog
+ * - severity: normal
+ * - platform: web
+ * - status: pass
+ */
 
 // Main test
 test('blog', async ({ webApp }) => {

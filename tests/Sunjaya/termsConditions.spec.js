@@ -20,13 +20,13 @@ async function termsConditions(webApp) {
         value: 'Navigate to terms and conditions page',
     });
 
-    await webApp.locator(`xpath=//a[normalize-space()='Syarat dan Ketentuan']`).click();
-
-    // click the information of terms and conditions
-    await webApp.locator(`xpath=//p[normalize-space()='Syarat dan Ketentuan Shuttle']`).click();
+    await webApp.locator(`xpath=//a[@class='nav-link '][normalize-space()='Syarat & Ketentuan']`).first().click();
     
     // wait for the detail information to be visible
-    await expect(webApp.locator(`xpath=//strong[normalize-space()='SYARAT DAN KETENTUAN']`)).toBeVisible();
+    await expect(webApp.locator(`xpath=//h1[normalize-space()='Syarat & Ketentuan']`)).toBeVisible();
+
+    // click the information of terms and conditions
+    await webApp.locator(`xpath=//summary[normalize-space()='Syarat dan Ketentuan Travel']`).click();
 }
 
 /**
@@ -48,7 +48,7 @@ test('terms & conditions', async ({ webApp }) => {
     // Add Allure Labels for categorizing in the report
     test.info().annotations.push({
         type: 'allure.label',
-        value: 'feature: terms and conditions page',
+        value: 'feature: terms & conditions page',
     });
     test.info().annotations.push({
         type: 'allure.label',
