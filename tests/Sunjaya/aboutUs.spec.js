@@ -3,37 +3,47 @@ const { test, expect } = require('../setup');
 
 /**
  * Fungsi:
- * - Menavigasi ke halaman "Blog".
- *
+ * - Untuk mengakses halaman "Tentang"
+ * 
  * Alur:
- * - Temukan elemen menu "Blog"
- * - Klik elemen tersebut untuk memuat halaman blog
- * - Verifikasi elemen konten utama blog muncul
- *
- * @param {object} webApp - Objek halaman (browser context) dari Playwright
+ * - Klik tautan "Tentang" di halaman utama
+ * - Verifikasi bahwa elemen judul muncul di halaman
+ * 
+ * @param {object} webApp - Objek browser Palywright 
  */
 
-// Helper funtion to check on blog
-async function blog(webApp) {
+// Helper function to check on Tentang
+async function about(webApp) {
     test.info().annotations.push({
         type: 'allure.step',
-        value: 'Navigate to Blog Page',
+        value: 'Navigate to Tentang page',
     });
 
-    const blogPath = webApp.locator(`xpath=//a[@class='nav-link '][normalize-space()='Blog']`);
-    await blogPath.isVisible();
-    await blogPath.click();
-
-    // Expect the page to have text
-    await expect(webApp.locator(`xpath=//h1[normalize-space()='Promo dan Berita Sunjaya Tours & Travel']`)).toBeVisible(); 
+    const aboutPath = webApp.locator(`xpath=//a[normalize-space()='Tentang Kami']`);
+    await aboutPath.click();
+    await expect(webApp.locator(`xpath=//h1[normalize-space()='Tentang Kami']`)).toBeVisible();
 }
 
+/**
+ * Pengujian utama untuk halaman "Tentang"
+ * 
+ * Tujuan:
+ * - Memastikan bahwa halaman Tentang  dapat diakses
+ * - Memverifikasi bahwa konten utama judul tampil
+ * 
+ * Allure Labels:
+ * - feature: about page
+ * - severity: normal
+ * - platform: web
+ * - status: pass
+ */
+
 // Main test
-test('blog', async ({ webApp }) => {
+test('about', async ({ webApp }) => {
     // Add Allure Labels for categorizing in the report
     test.info().annotations.push({
         type: 'allure.label',
-        value: 'feature: Access to blog',
+        value: 'feature: shuttle page',
     });
     test.info().annotations.push({
         type: 'allure.label',
@@ -47,7 +57,7 @@ test('blog', async ({ webApp }) => {
         type: 'allure.label',
         value: 'status: pass',
     });
-
-    // Start to access blog
-    await blog(webApp);
-});
+    
+    // Start the about Day Trans page
+    await about(webApp);
+})

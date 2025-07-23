@@ -1,6 +1,15 @@
 const { config } = require('../../config');
 const { test, expect } = require('../setup');
 
+/**
+ * Fungsi:
+ * - Menavigasi ke halaman "Lacak Paket"
+ * - Mengisi kode booking dari konfigurasi
+ * - Mengeklik tombol "Cek Paket"
+ *
+ * @param {object} webApp - Objek Playwright Page
+ */
+
 // Helper function to lacak paket
 async function packetTracking(webApp) {
     test.info().annotations.push({
@@ -18,6 +27,13 @@ async function packetTracking(webApp) {
      }
 } 
 
+/**
+ * Fungsi:
+ * - Memastikan input pelacakan terlihat (verifikasi visibilitas input kode)
+ *
+ * @param {object} webApp - Objek Playwright Page
+ * @param {string} codeBooking - Kode booking yang akan diverifikasi
+ */
 
 // Helper function to check tracking info with try-catch
 async function dataTracking(webApp, codeBooking) {
