@@ -35,7 +35,7 @@ test('ticketCheck', async ({ webApp }) => {
     // Add Allure Labels for categorizing in the report
     test.info().annotations.push({
         type: 'allure.label',
-        value: 'feature: Tracking Packet',
+        value: 'feature: ticket check',
     });
     test.info().annotations.push({
         type: 'allure.label',

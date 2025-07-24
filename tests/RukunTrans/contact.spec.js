@@ -17,7 +17,7 @@ const { test, expect } = require('../setup');
 async function contact(webApp) {
     test.info().annotations.push({
         type: 'allure.step',
-        value: 'Navigate to Blog Page',
+        value: 'Navigate to contact Page',
     });
 
     const contactPath = webApp.locator(`xpath=//a[contains(@class,'nav-link')][normalize-space()='Kontak']`);
@@ -33,7 +33,7 @@ test('contact', async ({ webApp }) => {
     // Add Allure Labels for categorizing in the report
     test.info().annotations.push({
         type: 'allure.label',
-        value: 'feature: Access to blog',
+        value: 'feature: Access to contact',
     });
     test.info().annotations.push({
         type: 'allure.label',

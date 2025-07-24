@@ -17,7 +17,7 @@ const { test, expect } = require('../setup');
 async function packetTermsConditions(webApp) {
     test.info().annotations.push({
         type: 'allure.step',
-        value: 'Navigate to ticket terms and conditions page',
+        value: 'Navigate to packet terms and conditions page',
     });
 
     const lacakPaketPath = webApp.locator(`xpath=//a[normalize-space()='Lacak Paket']`);

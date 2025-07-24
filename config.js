@@ -56,9 +56,9 @@ export const config = {
     },
 
     packet: {
-      origin: "BONTANG",
-      destination: "BALIKPAPAN",
-      packetType: "PREMIUM",
+      origin: "SEMARANG",
+      destination: "YOGYAKARTA",
+      packetType: "Dokumen",
       packetVolume: "Reguler Parcel",
       weight: 12,
       length: 34,
@@ -149,7 +149,7 @@ export const config = {
 
     /** @property {object} url - URL utama sistem */
     url: {
-      website: 'https://www.ztrans.id/',
+      website: 'https://www.sunjayaabadi.com/',
       otp: ''
     }
 };

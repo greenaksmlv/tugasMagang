@@ -265,7 +265,7 @@ test('packet rate', async ({ webApp }) => {
     // Add Allure Labels for better categorization in the report
     test.info().annotations.push({
         type: 'allure.label',
-        value: 'feature: Reservation',
+        value: 'feature: packet rate',
     });
     test.info().annotations.push({
         type: 'allure.label',

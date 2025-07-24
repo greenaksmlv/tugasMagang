@@ -18,7 +18,7 @@ const { test, expect } = require('../setup');
 async function clickingMedsos(webApp) {
     test.info().annotations.push({
         type: 'allure.step',
-        value: 'Navigate to Tentang page',
+        value: 'Navigate to media social page',
     });
 
     const medsosPath = webApp.locator(`xpath=//div[contains(text(),'@rukuntrans')]`);

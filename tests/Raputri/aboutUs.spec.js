@@ -29,7 +29,7 @@ test('about Raputri', async ({ webApp }) => {
     // Add Allure Labels for categorizing in the report
     test.info().annotations.push({
         type: 'allure.label',
-        value: 'feature: shuttle page',
+        value: 'feature: about us page',
     });
     test.info().annotations.push({
         type: 'allure.label',

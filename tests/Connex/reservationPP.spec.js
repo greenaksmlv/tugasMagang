@@ -275,7 +275,7 @@ test('reservationPP', async ({ webApp }) => {
     // Add Allure Labels for better categorization in the report
     test.info().annotations.push({
         type: 'allure.label',
-        value: 'feature: Coba',
+        value: 'feature: reservationPP',
     });
     test.info().annotations.push({
         type: 'allure.label',

@@ -33,7 +33,7 @@ test('rent', async ({ webApp }) => {
     // Add Allure Labels for categorizing in the report
     test.info().annotations.push({
         type: 'allure.label',
-        value: 'feature: Access to rent',
+        value: 'feature: Access to rental',
     });
     test.info().annotations.push({
         type: 'allure.label',
