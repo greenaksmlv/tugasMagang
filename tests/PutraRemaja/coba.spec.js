@@ -23,11 +23,12 @@ async function pickDeparture(webApp, departure) {
         value: 'Pick departure',
     });
 
-    const departureOption = webApp.locator(`xpath=//span[normalize-space()='Pilih Keberangkatan']`);
-    await departureOption.isVisible();
-    await departureOption.click();
+    const ppOption = webApp.locator(`xpath=//span[@id='roundTripLabel']`).first();
+    await ppOption.click();
 
-    await webApp.locator(`xpath=//div[normalize-space()='${departure}']`).click();
+    await expect(webApp.locator(`xpath=//input[@id='berangkat']`)).toBeVisible();
+    await webApp.locator(`xpath=//input[@id='berangkat']`).click();
+    await webApp.locator(`xpath=//div[@class='dropdown-item drpdwn-item font-semi-bold py-2']//span[@class='fs-14 lbl-outlet'][normalize-space()='${departure}']`).click();
 }
 
 /**
@@ -48,32 +49,10 @@ async function pickArrival(webApp, arrival) {
         type: 'allure.step',
         value: 'Pick arrival',
     });
-    await expect(webApp.locator(`xpath=//span[normalize-space()='CIGANEA']`)).toBeVisible();
-    await webApp.locator(`xpath=//span[normalize-space()='CIGANEA']`).click();
-    await webApp.locator(`xpath=//div[@class='ss-content ss-open']//div[@class='ss-option'][normalize-space()='${arrival}']`).click();
-}
 
-/**
- * Fungsi:
- * - Menentukan jumlah penumpang dan klik tombol cari 
- * 
- * Alur:
- * - Klik input jumlah orang
- * - Pilih jumlah dari dropdown
- * - Klik tombol "Search"
- *  
- * @param {object} webApp - Objek browser Playwright
- * @param {number} totalPassenger - Jumlah total penumpang
- */
-
-// Helper function to select passenger count
-async function selectPassenger(webApp, totalPassenger) {
-    test.info().annotations.push({
-        type: 'allure.step',
-        value: 'Select passenger count',
-    });
-    await webApp.locator(`xpath=//span[normalize-space()='1 Orang']`).first().click();
-    await webApp.locator(`xpath=//div[normalize-space()='${totalPassenger} Orang']`).click();
+    await expect(webApp.locator(`xpath=//input[@id='tujuan']`)).toBeVisible();
+    await webApp.locator(`xpath=//input[@id='tujuan']`).click();
+    await webApp.locator(`xpath=//div[@id='dropdown-outlet2']//div//div[@class='dropdown-item drpdwn-item font-semi-bold py-2']//span[@class='fs-14 lbl-outlet'][normalize-space()='${arrival}']`).click();
 }
 
 /**
@@ -100,11 +79,64 @@ async function selectDate(webApp, date) {
     await dateField.click();
 
     // Next month
-    await webApp.locator(`xpath=//span[@class='flatpickr-next-month']//*[name()='svg']`).click();
+    await webApp.locator(`xpath=//span[@class='flatpickr-next-month']//*[name()='svg']`).first().click();
     await webApp.locator(`xpath=//span[@aria-label='${date}']`).click();
+}
+
+/**
+ * Fungsi:
+ * - Memilih tanggal kepergian dari kalender
+ * 
+ * Alur:
+ * - Klik input tanggal pergi
+ * - klik tombol bulan berikutnya
+ * - klik tanggal yang sesuai
+ * 
+ * @param {object} webApp - Objek browser Playwright 
+ * @param {*} date - Tanggal dengan format
+ */
+
+// Helper function to select return date
+async function selectReturnDate(webApp, returnDate) {
+    test.info().annotations.push({
+        type: 'allure.step',
+        value: 'Select return date',
+    });
+    const dateField = webApp.locator(`xpath=//input[@id='tanggal_pulang']`);
+    await expect(dateField).toBeVisible();
+    await dateField.click();
+
+    // Next month
+    await webApp.locator(`xpath=//div[@class='flatpickr-calendar animate showTimeInput arrowTop open']//span[@class='flatpickr-next-month']`).first().click();
+    const day = calendar.locator(`span.flatpickr-day[aria-label='${returnDate}']`);
+    await expect(day).toBeVisible({ timeout: 5000 });
+    await day.click();
+}
+
+/**
+ * Fungsi:
+ * - Menentukan jumlah penumpang dan klik tombol cari 
+ * 
+ * Alur:
+ * - Klik input jumlah orang
+ * - Pilih jumlah dari dropdown
+ * - Klik tombol "Search"
+ *  
+ * @param {object} webApp - Objek browser Playwright
+ * @param {number} totalPassenger - Jumlah total penumpang
+ */
+
+// Helper function to select passenger count
+async function selectPassenger(webApp, totalPassenger) {
+    test.info().annotations.push({
+        type: 'allure.step',
+        value: 'Select passenger count',
+    });
+    await webApp.locator(`xpath=//span[@class='placeholder']`).click();
+    await webApp.locator(`xpath=//div[normalize-space()='${totalPassenger} Orang']`).click();
 
     // button search
-    await webApp.locator(`xpath=//button[normalize-space()='Cari']`).click();
+    await webApp.locator(`xpath=//button[@type='submit']`).click();
 }
 
 /**
@@ -124,7 +156,31 @@ async function selectSchedule(webApp) {
         type: 'allure.step',
         value: 'Select travel schedule',
     });
-    const scheduleButton = webApp.locator(`xpath=//li[1]//div[1]//div[1]//div[3]//div[2]//div[1]//div[1]//button[1]`);
+    const scheduleButton = webApp.locator(`xpath=//div[@id='pergi']//li[1]//div[1]//div[1]//div[5]//button[1]`);
+    await scheduleButton.click();
+}
+
+/**
+ * Fungsi: 
+ * - Memilih jadwal kepulangan yang tersedia
+ * 
+ * Alur: 
+ * - Klik tombol "Pilih Jam Kepulangan"
+ * - Klik tombol "Beli Tiket" pada jadwal yang tersedia
+ * 
+ * @param {object} webApp -  Objek browser Playwright
+ */
+
+// Helper function to select return schedule
+async function selectReturnSchedule(webApp) {
+    test.info().annotations.push({
+        type: 'allure.step',
+        value: 'Select return schedule',
+    });
+    const ppScheduleOption = webApp.locator(`xpath=//a[@id='pulang-tab']`).first();
+    ppScheduleOption.click();
+
+    const scheduleButton = webApp.locator(`xpath=//div[@id='pergi']//li[1]//div[1]//div[1]//div[5]//button[1]`);
     await scheduleButton.click();
 }
 
@@ -211,6 +267,44 @@ async function selectSeat(webApp) {
 
         // Click the seat
         await seatLocator.click();
+
+        // Wait for UI to transition to next passenger (adjust as needed)
+        await webApp.waitForTimeout(3000);
+    }
+}
+
+/**
+ * Fungsi:
+ * - Memilih kursi pulang penumpang sesuai dengan nama dan nomor yang ada di config.js
+ * 
+ * Alur:
+ * - Klik kursi sesuai `return_seat` dari config
+ * - Submit pilihan kursi
+ * 
+ * @param {object} webApp - Objek browser Playwright 
+ */
+
+// Helper function to select return seat
+async function selectReturnSeat(webApp) {
+    const passengers = config.passenger_data.passengers;
+    await webApp.locator(`xpath=//a[@id='pulang-tab']`).click();
+
+    for (let i = 0; i < passengers.length; i++) {
+        const passenger = passengers[i];
+
+        test.info().annotations.push({
+            type: 'allure.step',
+            value: `Select seat ${passenger.return_seat} for ${passenger.name}`,
+        });
+
+        console.log(`Select seat ${passenger.return_seat} for ${passenger.name}`);
+
+        // Wait for seat to be visible (this also ensures that we're on the correct passenger screen)
+        const returnSeatLocator = webApp.locator(`xpath=//div[@id='${passenger.return_seat}']//p`);
+        await expect(returnSeatLocator).toBeVisible({ timeout: 10000 });
+
+        // Click the seat
+        await returnSeatLocator.click();
 
         // Wait for UI to transition to next passenger (adjust as needed)
         await webApp.waitForTimeout(3000);
@@ -321,7 +415,7 @@ test('reservation', async ({ webApp }) => {
     // Add Allure Labels for better categorization in the report
     test.info().annotations.push({
         type: 'allure.label',
-        value: 'feature: Reservation',
+        value: 'feature: ReservationPP',
     });
     test.info().annotations.push({
         type: 'allure.label',
@@ -339,7 +433,7 @@ test('reservation', async ({ webApp }) => {
     // Start the reservation process
     test.info().annotations.push({
         type: 'allure.step',
-        value: 'Start reservation process',
+        value: 'Start reservationPP process',
     });
 
     // Pick departure and arrival
@@ -347,18 +441,21 @@ test('reservation', async ({ webApp }) => {
     await webApp.waitForTimeout(1000);
     await pickArrival(webApp, config.journey.arrival);
 
-    // Select date and passenger count
+    // Select date, return date and passenger count
     await selectDate(webApp, config.journey.date);
+    await selectReturnDate(webApp, config.journey.return_date);
     await selectPassenger(webApp, config.journey.passenger_count);
 
-    // Select a schedule
+    // Select schedule and return schedule 
     await selectSchedule(webApp);
+    await selectReturnSchedule(webApp);
 
     // Input passenger details
     await inputPassengerData(webApp);
 
-    // Select seat
+    // Select seat and return seat
     await selectSeat(webApp);
+    await selectReturnSeat(webApp);
 
     if(config.voucher.freepass != ''){
         await usingVoucher(webApp, config.voucher.freepass)

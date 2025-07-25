@@ -18,12 +18,12 @@ export const config = {
 
     /** @property {object} journey - Informasi jadwal perjalanan */
     journey: {
-      departure: 'SAMARINDA',
-      arrival: 'SANGATTA',
+      departure: 'ALUN ALUN BANJARNEGARA',
+      arrival: 'ALUN ALUN MAGELANGA',
       naikOption: 'BUAH BATU',
       turunOption: 'BINUS',
       date: 'August 22, 2025',
-      return_date: 'September 5  2025',
+      return_date: 'Agustus 25  2025',
       passenger_count: 2,
     },
 
@@ -149,7 +149,7 @@ export const config = {
 
     /** @property {object} url - URL utama sistem */
     url: {
-      website: 'https://www.sunjayaabadi.com/',
+      website: 'https://booking.sadyatrans.com/',
       otp: ''
     }
 };

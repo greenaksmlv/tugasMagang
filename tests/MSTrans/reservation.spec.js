@@ -22,11 +22,8 @@ async function pickDeparture(webApp, departure) {
         type: 'allure.step',
         value: 'Pick departure',
     });
-
-    const departureOption = webApp.locator(`xpath=//span[normalize-space()='Pilih Keberangkatan']`);
-    await departureOption.isVisible();
-    await departureOption.click();
-
+    await expect(webApp.locator(`xpath=//span[normalize-space()='Pilih Keberangkatan']`)).toBeVisible();
+    await webApp.locator(`xpath=//span[normalize-space()='Pilih Keberangkatan']`).click();
     await webApp.locator(`xpath=//div[normalize-space()='${departure}']`).click();
 }
 
@@ -48,8 +45,8 @@ async function pickArrival(webApp, arrival) {
         type: 'allure.step',
         value: 'Pick arrival',
     });
-    await expect(webApp.locator(`xpath=//span[normalize-space()='CIGANEA']`)).toBeVisible();
-    await webApp.locator(`xpath=//span[normalize-space()='CIGANEA']`).click();
+    await expect(webApp.locator(`xpath=//span[normalize-space()='BANDARA KERTAJATI']`)).toBeVisible();
+    await webApp.locator(`xpath=//span[normalize-space()='BANDARA KERTAJATI']`).click();
     await webApp.locator(`xpath=//div[@class='ss-content ss-open']//div[@class='ss-option'][normalize-space()='${arrival}']`).click();
 }
 
@@ -72,7 +69,7 @@ async function selectPassenger(webApp, totalPassenger) {
         type: 'allure.step',
         value: 'Select passenger count',
     });
-    await webApp.locator(`xpath=//span[normalize-space()='1 Orang']`).first().click();
+    await webApp.locator(`xpath=//span[normalize-space()='1 Orang']`).click();
     await webApp.locator(`xpath=//div[normalize-space()='${totalPassenger} Orang']`).click();
 }
 
@@ -104,7 +101,7 @@ async function selectDate(webApp, date) {
     await webApp.locator(`xpath=//span[@aria-label='${date}']`).click();
 
     // button search
-    await webApp.locator(`xpath=//button[normalize-space()='Cari']`).click();
+    await webApp.locator(`xpath=//button[@type='submit']`).click();
 }
 
 /**
@@ -124,7 +121,7 @@ async function selectSchedule(webApp) {
         type: 'allure.step',
         value: 'Select travel schedule',
     });
-    const scheduleButton = webApp.locator(`xpath=//li[1]//div[1]//div[1]//div[3]//div[2]//div[1]//div[1]//button[1]`);
+    const scheduleButton = webApp.locator(`xpath=//li[1]//div[1]//div[1]//div[5]//button[1]`);
     await scheduleButton.click();
 }
 
