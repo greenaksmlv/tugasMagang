@@ -45,8 +45,8 @@ async function pickArrival(webApp, arrival) {
         type: 'allure.step',
         value: 'Pick arrival',
     });
-    await expect(webApp.locator(`xpath=//span[normalize-space()='CIGANEA']`)).toBeVisible();
-    await webApp.locator(`xpath=//span[normalize-space()='CIGANEA']`).click();
+    await expect(webApp.locator(`xpath=//span[normalize-space()='Pool Minanga Express']`)).toBeVisible();
+    await webApp.locator(`xpath=//span[normalize-space()='Pool Minanga Express']`).click();
     await webApp.locator(`xpath=//div[@class='ss-content ss-open']//div[@class='ss-option'][normalize-space()='${arrival}']`).click();
 }
 
@@ -133,7 +133,7 @@ async function selectSchedule(webApp) {
         type: 'allure.step',
         value: 'Select travel schedule',
     });
-    const scheduleButton = webApp.locator(`xpath=//li[1]//div[1]//div[1]//div[3]//div[2]//div[1]//div[1]//button[1]`);
+    const scheduleButton = webApp.locator(`xpath=//button[normalize-space()='Pilih']`);
     await scheduleButton.click();
 }
 

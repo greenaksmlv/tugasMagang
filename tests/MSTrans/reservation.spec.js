@@ -92,17 +92,27 @@ async function selectDate(webApp, date) {
         type: 'allure.step',
         value: 'Select travel date',
     });
-    const dateField = webApp.locator(`xpath=//input[@id='tanggal_pergi']`);
+
+    const dateField = webApp.locator(`xpath=//input[contains(@class, 'flatpickr-input') and @type='text']`);
     await expect(dateField).toBeVisible();
     await dateField.click();
 
-    // Next month
+    // Navigasi bulan (opsional)
     await webApp.locator(`xpath=//span[@class='flatpickr-next-month']//*[name()='svg']`).click();
+
+    // Pilih tanggal
     await webApp.locator(`xpath=//span[@aria-label='${date}']`).click();
 
-    // button search
-    await webApp.locator(`xpath=//button[@type='submit']`).click();
+    // Klik Cari
+    const searchButton = webApp.locator(`xpath=//button[normalize-space()='Cari']`);
+    await expect(searchButton).toBeVisible();
+    await searchButton.click();
+
+    await webApp.waitForLoadState('load', { timeout: 15000 });
 }
+
+
+
 
 /**
  * Fungsi: 
@@ -121,7 +131,7 @@ async function selectSchedule(webApp) {
         type: 'allure.step',
         value: 'Select travel schedule',
     });
-    const scheduleButton = webApp.locator(`xpath=//li[1]//div[1]//div[1]//div[5]//button[1]`);
+    const scheduleButton = webApp.locator(`xpath=//li[1]//div[1]//div[1]//div[3]//div[2]//div[1]//div[1]//button[1]`);
     await scheduleButton.click();
 }
 
@@ -217,7 +227,6 @@ async function selectSeat(webApp) {
     await webApp.locator(`xpath=//button[@id='submit']`).click();
 }
 
-
 /**
  * Fungsi: 
  * - Menggunakan voucher yang valid
@@ -274,7 +283,7 @@ async function selectPayment(webApp, paymentMethod) {
     await expect(sectionToggle).toBeVisible({ timeout: 15000 });
     await sectionToggle.click();
 
-    const paymentRadio = webApp.locator(`xpath=//img[@alt='${paymentMethod}']`);
+    const paymentRadio = webApp.locator(`xpath=//img[contains(@alt,'${paymentMethod}')]`);
     await expect(paymentRadio).toBeVisible({ timeout: 10000 });
     await paymentRadio.click();
 }
@@ -297,6 +306,9 @@ async function checkingTnc(webApp) {
     await tncButton.click();
 
     await webApp.locator(`xpath=//button[@id='submit']`).click();
+
+    // click Konfirmasi popup
+    await webApp.locator(`xpath=//button[@type='button'][normalize-space()='Konfirmasi']`).click();
 }
 
 /**
@@ -345,8 +357,9 @@ test('reservation', async ({ webApp }) => {
     await pickArrival(webApp, config.journey.arrival);
 
     // Select date and passenger count
-    await selectDate(webApp, config.journey.date);
     await selectPassenger(webApp, config.journey.passenger_count);
+    await selectDate(webApp, config.journey.date);
+    
 
     // Select a schedule
     await selectSchedule(webApp);

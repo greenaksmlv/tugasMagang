@@ -18,8 +18,8 @@ export const config = {
 
     /** @property {object} journey - Informasi jadwal perjalanan */
     journey: {
-      departure: 'Pool Minanga Express',
-      arrival: 'Cikarang',
+      departure: 'BUAH BATU',
+      arrival: 'SADANG',
       naikOption: 'BUAH BATU',
       turunOption: 'BINUS',
       date: 'August 22, 2025',
@@ -149,7 +149,7 @@ export const config = {
 
     /** @property {object} url - URL utama sistem */
     url: {
-      website: 'https://www.bussuryabali.com/',
+      website: 'https://www.raputri.com/',
       otp: ''
     }
 };
