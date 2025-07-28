@@ -18,8 +18,8 @@ export const config = {
 
     /** @property {object} journey - Informasi jadwal perjalanan */
     journey: {
-      departure: 'ALUN ALUN BANJARNEGARA',
-      arrival: 'ALUN ALUN MAGELANGA',
+      departure: 'Pool Minanga Express',
+      arrival: 'Cikarang',
       naikOption: 'BUAH BATU',
       turunOption: 'BINUS',
       date: 'August 22, 2025',
@@ -56,8 +56,8 @@ export const config = {
     },
 
     packet: {
-      origin: "SEMARANG",
-      destination: "YOGYAKARTA",
+      origin: "YOGYAKARTA",
+      destination: "KETAPANG",
       packetType: "Dokumen",
       packetVolume: "Reguler Parcel",
       weight: 12,
@@ -149,7 +149,7 @@ export const config = {
 
     /** @property {object} url - URL utama sistem */
     url: {
-      website: 'https://booking.sadyatrans.com/',
+      website: 'https://www.bussuryabali.com/',
       otp: ''
     }
 };

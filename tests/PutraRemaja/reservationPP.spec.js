@@ -77,7 +77,7 @@ async function selectDate(webApp, date) {
     await dateField.click();
 
     // Next month
-    await webApp.locator(`xpath=//span[@class='flatpickr-next-month']//*[name()='svg']`).click().first();
+    await webApp.locator(`xpath=//span[@class='flatpickr-next-month']//*[name()='svg']`).click().first;
     await webApp.locator(`xpath=//span[@aria-label='${date}']`).click();
 }
 

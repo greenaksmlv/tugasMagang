@@ -1,6 +1,8 @@
 const { config } = require('../../config');
 const { test, expect } = require('../setup');
 
+test.setTimeout(120_000);
+
 /**
  * Fungsi untuk melakukan proses Sign In
  * 

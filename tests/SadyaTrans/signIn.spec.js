@@ -1,7 +1,18 @@
 const { config } = require('../../config');
 const { test, expect } = require('../setup');
 
-
+/**
+ * Fungsi untuk melakukan proses Sign In
+ * 
+ * Alur: 
+ * - Cari tombol "Masuk" di halaman utama
+ * - Klik tombol Masuk
+ * - Verifikasi halaman login muncul
+ * - Cari dan klik tombol metode login yang disesuaikan dengan `method`
+ * 
+ * @param {object} webApp - Konteks Playwright browser 
+ * @param {string} method - Key metode login yang disesuaikan dengan konfigurasi di config.sign_methods
+ */
 
 // Helper function to Sign In
 async function signIn(webApp, method) {
