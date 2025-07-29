@@ -22,9 +22,9 @@ async function pickDeparture(webApp, departure) {
         type: 'allure.step',
         value: 'Pick departure',
     });
-    await expect(webApp.locator(`xpath=//span[normalize-space()='Pilih Keberangkatan']`)).toBeVisible();
-    await webApp.locator(`xpath=//span[normalize-space()='Pilih Keberangkatan']`).click();
-    await webApp.locator(`xpath=//div[normalize-space()='${departure}']`).click();
+    await expect(webApp.locator(`xpath=//input[@id='berangkat']`)).toBeVisible();
+    await webApp.locator(`xpath=//input[@id='berangkat']`).click();
+    await webApp.locator(`xpath=//div[@class='dropdown-item drpdwn-item'][normalize-space()='${departure}']`).click();
 }
 
 /**
@@ -45,9 +45,9 @@ async function pickArrival(webApp, arrival) {
         type: 'allure.step',
         value: 'Pick arrival',
     });
-    await expect(webApp.locator(`xpath=//span[normalize-space()='GARASI RB TRANSPORT']`)).toBeVisible();
-    await webApp.locator(`xpath=//span[normalize-space()='GARASI RB TRANSPORT']`).click();
-    await webApp.locator(`xpath=//div[normalize-space()='${arrival}']`).click();
+    await expect(webApp.locator(`xpath=//input[@id='tujuan']`)).toBeVisible();
+    await webApp.locator(`xpath=//input[@id='tujuan']`).click();
+    await webApp.locator(`xpath=//div[@id='dropdown-outlet2']//div//div[@class='dropdown-item drpdwn-item'][normalize-space()='${arrival}']`).click();
 }
 
 /**
@@ -69,7 +69,7 @@ async function selectPassenger(webApp, totalPassenger) {
         type: 'allure.step',
         value: 'Select passenger count',
     });
-    await webApp.locator(`xpath=//span[normalize-space()='1 Orang']`).click();
+    await webApp.locator(`xpath=//span[@class='placeholder']`).click();
     await webApp.locator(`xpath=//div[normalize-space()='${totalPassenger} Orang']`).click();
 }
 
@@ -93,7 +93,7 @@ async function selectDate(webApp, date) {
         value: 'Select travel date',
     });
 
-    const dateField = webApp.locator(`xpath=//input[@class='form-control form-pp datepicker flatpickr-input input active']`);
+    const dateField = webApp.locator(`xpath=//input[@class='form-control inp datepicker color-white tanggal_pergi ml-3 flatpickr-input input active']`);
     await expect(dateField).toBeVisible();
     await dateField.click();
 

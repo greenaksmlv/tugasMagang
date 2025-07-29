@@ -22,9 +22,9 @@ async function pickDeparture(webApp, departure) {
         type: 'allure.step',
         value: 'Pick departure',
     });
-    await expect(webApp.locator(`xpath=//span[normalize-space()='Pilih Keberangkatan']`)).toBeVisible();
-    await webApp.locator(`xpath=//span[normalize-space()='Pilih Keberangkatan']`).click();
-    await webApp.locator(`xpath=//div[normalize-space()='${departure}']`).click();
+    await expect(webApp.locator(`xpath=//p[@class='nama_asal font-weight-bold ellipsis fs-18 mb-0']`)).toBeVisible();
+    await webApp.locator(`xpath=//p[@class='nama_asal font-weight-bold ellipsis fs-18 mb-0']`).click();
+    await webApp.locator(`xpath=//p[normalize-space()='${departure}']`).click();
 }
 
 /**
@@ -45,9 +45,62 @@ async function pickArrival(webApp, arrival) {
         type: 'allure.step',
         value: 'Pick arrival',
     });
-    await expect(webApp.locator(`xpath=//span[normalize-space()='GARASI RB TRANSPORT']`)).toBeVisible();
-    await webApp.locator(`xpath=//span[normalize-space()='GARASI RB TRANSPORT']`).click();
-    await webApp.locator(`xpath=//div[normalize-space()='${arrival}']`).click();
+    await expect(webApp.locator(`xpath=//p[@class='nama_tujuan font-weight-bold ellipsis fs-18 mb-0']`)).toBeVisible();
+    await webApp.locator(`xpath=//p[@class='nama_tujuan font-weight-bold ellipsis fs-18 mb-0']`).click();
+    await webApp.locator(`xpath=//div[@class='pointer border border-secondary2 rounded-10 p-3']`).click();
+}
+
+
+
+/**
+ * Fungsi:
+ * - Memilih tanggal keberangkatan dari kalender
+ * 
+ * Alur:
+ * - Klik input tanggal keberangkatan
+ * - klik tombol bulan berikutnya
+ * - klik tanggal yang sesuai
+ * 
+ * @param {object} webApp - Objek browser Playwright 
+ * @param {*} date - Tanggal dengan format
+ */
+
+// Helper function to select date
+async function selectDate(webApp) {
+  test.info().annotations.push({
+    type: 'allure.step',
+    value: 'Select travel date',
+  });
+
+  const departureInput = webApp.locator('#tglberangkat');
+  await expect(departureInput).toBeVisible({ timeout: 10000 });
+  await departureInput.click();
+
+  await webApp.locator('span.flatpickr-next-month').click();
+  await webApp.locator(`span[aria-label="${config.travelDate}"]`).click();
+}
+
+
+/**
+ * Fungsi:
+ * - Menentukan jam landing
+ * 
+ * Alur:
+ * - Klik Jam landing - take off
+ * - Pilih angka
+ *  
+ * @param {object} webApp - Objek browser Playwright
+ * 
+ */
+
+// Helper function to select passenger count
+async function selectTime(webApp, landingTime) {
+    test.info().annotations.push({
+        type: 'allure.step',
+        value: 'Select passenger count',
+    });
+    await webApp.locator(`xpath=//input[@id='jamlanding']`).click();
+    await webApp.locator(`xpath=//input[@class='${landingTime}']`).click();
 }
 
 /**
@@ -69,38 +122,10 @@ async function selectPassenger(webApp, totalPassenger) {
         type: 'allure.step',
         value: 'Select passenger count',
     });
-    await webApp.locator(`xpath=//span[normalize-space()='1 Orang']`).click();
+    await webApp.locator(`xpath=//span[@class='placeholder']`).click();
     await webApp.locator(`xpath=//div[normalize-space()='${totalPassenger} Orang']`).click();
-}
 
-/**
- * Fungsi:
- * - Memilih tanggal keberangkatan dari kalender
- * 
- * Alur:
- * - Klik input tanggal keberangkatan
- * - klik tombol bulan berikutnya
- * - klik tanggal yang sesuai
- * 
- * @param {object} webApp - Objek browser Playwright 
- * @param {*} date - Tanggal dengan format
- */
-
-// Helper function to select date
-async function selectDate(webApp, date) {
-    test.info().annotations.push({
-        type: 'allure.step',
-        value: 'Select travel date',
-    });
-
-    const dateField = webApp.locator(`xpath=//input[@class='form-control form-pp datepicker flatpickr-input input active']`);
-    await expect(dateField).toBeVisible();
-    await dateField.click();
-
-    await webApp.locator(`xpath=//span[@class='flatpickr-next-month']//*[name()='svg']`).click();
-    await webApp.locator(`xpath=//span[@aria-label='${date}']`).click();
-
-    const searchButton = webApp.locator(`xpath=//button[normalize-space()='Cari']`);
+    const searchButton = webApp.locator(`xpath=//button[normalize-space()='Cari Tiket']`);
     await expect(searchButton).toBeVisible();
 
     await searchButton.click();
@@ -113,8 +138,6 @@ async function selectDate(webApp, date) {
         console.warn('⚠️ Page tidak reload setelah klik Cari');
     }
 }
-
-
 
 /**
  * Fungsi: 
@@ -133,7 +156,7 @@ async function selectSchedule(webApp) {
         type: 'allure.step',
         value: 'Select travel schedule',
     });
-    const scheduleButton = webApp.locator(`xpath=//li[1]//div[1]//div[1]//div[3]//div[2]//div[1]//div[1]//button[1]`);
+    const scheduleButton = webApp.locator(`xpath=//li[1]//div[1]//div[1]//div[3]//div[2]//div[1]//button[1]`);
     await scheduleButton.click();
 }
 
@@ -163,8 +186,10 @@ async function inputPassengerData(webApp) {
 
     // fill buyer details
     await webApp.locator(`xpath=//input[@id='pemesan']`).fill(passengerData.name);
-    await webApp.locator(`xpath=//input[@id='email']`).fill(passengerData.email);
     await webApp.locator(`xpath=//input[@placeholder='Masukkan No. Telepon']`).fill(passengerData.phone_number);
+    await webApp.locator(`xpath=//input[@id='email']`).fill(passengerData.email);
+    await webApp.locator(`xpath=//input[@id='alamat']`).fill(passengerData.address);
+    
 
     // Handle "Pemesan adalah penumpang" checkbox
     if (passengerData.cust_name_same != 0) {
@@ -359,8 +384,9 @@ test('reservation', async ({ webApp }) => {
     await pickArrival(webApp, config.journey.arrival);
 
     // Select date and passenger count
-    await selectPassenger(webApp, config.journey.passenger_count);
     await selectDate(webApp, config.journey.date);
+    await selectTime(webApp);
+    await selectPassenger(webApp, config.journey.passenger_count);
     
 
     // Select a schedule

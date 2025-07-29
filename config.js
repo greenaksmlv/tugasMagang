@@ -18,11 +18,11 @@ export const config = {
 
     /** @property {object} journey - Informasi jadwal perjalanan */
     journey: {
-      departure: 'BUAH BATU',
-      arrival: 'SADANG',
+      departure: 'TERMINAL SLEKO',
+      arrival: '[DROP] YOGYAKARTA INTERNATIONAL AIRPORT KULONPROGO',
       naikOption: 'BUAH BATU',
       turunOption: 'BINUS',
-      date: 'August 22, 2025',
+      date: 'August 21, 2025',
       return_date: 'Agustus 25  2025',
       passenger_count: 2,
     },
@@ -35,6 +35,7 @@ export const config = {
       name: 'Green Melissa',
       email: 'gerin@example.com',
       phone_number: '081212121212',
+      address: 'UNAI',
       cust_name_same: 1,
       passengers:[
             {
@@ -149,7 +150,7 @@ export const config = {
 
     /** @property {object} url - URL utama sistem */
     url: {
-      website: 'https://www.raputri.com/',
+      website: 'https://www.satelqu.com/',
       otp: ''
     }
 };

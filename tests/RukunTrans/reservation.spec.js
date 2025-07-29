@@ -45,9 +45,9 @@ async function pickArrival(webApp, arrival) {
         type: 'allure.step',
         value: 'Pick arrival',
     });
-    await expect(webApp.locator(`xpath=//span[normalize-space()='GARASI RB TRANSPORT']`)).toBeVisible();
-    await webApp.locator(`xpath=//span[normalize-space()='GARASI RB TRANSPORT']`).click();
-    await webApp.locator(`xpath=//div[normalize-space()='${arrival}']`).click();
+    await expect(webApp.locator(`xpath=//span[normalize-space()='AKMIL']`)).toBeVisible();
+    await webApp.locator(`xpath=//span[normalize-space()='AKMIL']`).click();
+    await webApp.locator(`xpath=//div[@class='ss-content ss-open']//div[@class='ss-option'][normalize-space()='${arrival}']`).click();
 }
 
 /**
