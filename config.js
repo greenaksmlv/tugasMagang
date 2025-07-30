@@ -18,8 +18,8 @@ export const config = {
 
     /** @property {object} journey - Informasi jadwal perjalanan */
     journey: {
-      departure: 'TERMINAL SLEKO',
-      arrival: '[DROP] YOGYAKARTA INTERNATIONAL AIRPORT KULONPROGO',
+      departure: 'BUAH BATU',
+      arrival: 'LIPPO',
       naikOption: 'BUAH BATU',
       turunOption: 'BINUS',
       date: 'August 21, 2025',
@@ -150,7 +150,7 @@ export const config = {
 
     /** @property {object} url - URL utama sistem */
     url: {
-      website: 'https://www.satelqu.com/',
+      website: 'https://sehatitravelindo.com/index.php',
       otp: ''
     }
 };
