@@ -127,6 +127,8 @@ async function selectDate(webApp, date) {
  * @param {object} webApp -  Objek browser Playwright
  */
 
+// masalah di bagian pick schedule (expired due to inactivity)
+
 // Helper function to select schedule
 async function selectSchedule(webApp) {
     test.info().annotations.push({

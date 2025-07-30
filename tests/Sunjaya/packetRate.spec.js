@@ -17,6 +17,7 @@ test.setTimeout(120_000);
  * @param {object} webApp - Objek Playwright Page
  */
 
+
 // Helper function to check on packet
 async function packetRate(webApp) {
     test.info().annotations.push({
@@ -45,6 +46,8 @@ async function packetRate(webApp) {
  * @param {object} webApp - Objek browser Playwright
  * @param {string} origin - Nama kota asal
  */
+
+// ada masalah di frontendnya di bagian option asal tarif paket
 
 // Helper function to pick packet origin
 async function pickOrigin(webApp, origin) {

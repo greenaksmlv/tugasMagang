@@ -18,8 +18,8 @@ export const config = {
 
     /** @property {object} journey - Informasi jadwal perjalanan */
     journey: {
-      departure: 'BUAH BATU',
-      arrival: 'LIPPO',
+      departure: 'DEPOK',
+      arrival: 'BANDUNG',
       naikOption: 'BUAH BATU',
       turunOption: 'BINUS',
       date: 'August 21, 2025',
@@ -150,7 +150,7 @@ export const config = {
 
     /** @property {object} url - URL utama sistem */
     url: {
-      website: 'https://sehatitravelindo.com/index.php',
+      website: 'https://www.ztrans.id/',
       otp: ''
     }
 };

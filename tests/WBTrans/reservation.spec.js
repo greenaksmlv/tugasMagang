@@ -86,6 +86,8 @@ async function selectPassenger(webApp, totalPassenger) {
  * @param {*} date - Tanggal dengan format
  */
 
+// Ada masalah di bagian pick date xpathnya not found
+
 // Helper function to select date
 async function selectDate(webApp, date) {
     test.info().annotations.push({

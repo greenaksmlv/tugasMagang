@@ -127,6 +127,8 @@ async function selectDate(webApp, date) {
  * @param {object} webApp -  Objek browser Playwright
  */
 
+// ada masalah di bagian select schedule (no reservation found)
+
 // Helper function to select schedule
 async function selectSchedule(webApp) {
     test.info().annotations.push({

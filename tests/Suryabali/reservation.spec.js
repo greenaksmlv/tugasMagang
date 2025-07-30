@@ -126,6 +126,8 @@ async function selectPassenger(webApp, totalPassenger) {
  * @param {object} webApp -  Objek browser Playwright
  */
 
+// Tidak ada jadwal yang ditemukan saat mau check schedule
+
 // Helper function to select schedule
 async function selectSchedule(webApp) {
     test.info().annotations.push({

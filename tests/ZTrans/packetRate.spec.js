@@ -46,6 +46,8 @@ async function packetRate(webApp) {
  * @param {string} origin - Nama kota asal
  */
 
+// ada masalah di frontendnya di bagian option asal tarif paket
+
 // Helper function to pick packet origin
 async function pickOrigin(webApp, origin) {
     test.info().annotations.push({
